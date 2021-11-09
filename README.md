@@ -10,7 +10,7 @@ Sometimes reading documenation did not help with understanding how you can work 
 
 ## Running the app
 
-Add dot env to project before start. Content of this file should incluede next variables.
+Add dot env to project before start. Content of this file should include next variables.
 
 ```
 DATABASE_HOST=
