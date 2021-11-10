@@ -4,6 +4,6 @@ import { PersonalInfoController } from './personal-info.controller';
 
 @Module({
   controllers: [PersonalInfoController],
-  providers: [PersonalInfoService]
+  providers: [PersonalInfoService],
 })
 export class PersonalInfoModule {}
