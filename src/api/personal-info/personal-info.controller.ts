@@ -7,10 +7,12 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { PersonalInfoService } from './personal-info.service';
 import { CreatePersonalInfoDto } from './dto/create-personal-info.dto';
 import { UpdatePersonalInfoDto } from './dto/update-personal-info.dto';
 
+@ApiTags('Personal info')
 @Controller('personal-info')
 export class PersonalInfoController {
   constructor(private readonly personalInfoService: PersonalInfoService) {}
