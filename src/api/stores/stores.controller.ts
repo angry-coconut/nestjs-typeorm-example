@@ -32,6 +32,11 @@ export class StoresController {
     return this.storesService.findOne(id);
   }
 
+  @Get(':id/products')
+  findOneWithProducts(@Param('id') id: string) {
+    return this.storesService.findAllProductsForStore(id);
+  }
+
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateStoreDto: UpdateStoreDto) {
     return this.storesService.update(id, updateStoreDto);

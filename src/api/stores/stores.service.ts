@@ -29,6 +29,15 @@ export class StoresService {
     return this.storeRepository.findOne({ id });
   }
 
+  async findAllProductsForStore(id: string) {
+    return this.storeRepository.findOne(
+      { id },
+      {
+        relations: ['products'],
+      },
+    );
+  }
+
   async update(id: string, updateStoreDto: UpdateStoreDto) {
     try {
       await this.storeRepository.update({ id }, updateStoreDto);

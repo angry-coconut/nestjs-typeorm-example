@@ -22,11 +22,18 @@ export class ProductsService {
   }
 
   async findAll() {
-    return this.productRepo.find();
+    return this.productRepo.find({
+      relations: ['store'],
+    });
   }
 
   async findOne(id: string) {
-    return this.productRepo.findOne({ id });
+    return this.productRepo.findOne(
+      { id },
+      {
+        relations: ['store'],
+      },
+    );
   }
 
   async update(id: string, updateProductDto: UpdateProductDto) {
