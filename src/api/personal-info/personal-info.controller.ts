@@ -29,7 +29,7 @@ export class PersonalInfoController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.personalInfoService.findOne(+id);
+    return this.personalInfoService.findOne(id);
   }
 
   @Patch(':id')
@@ -37,11 +37,11 @@ export class PersonalInfoController {
     @Param('id') id: string,
     @Body() updatePersonalInfoDto: UpdatePersonalInfoDto,
   ) {
-    return this.personalInfoService.update(+id, updatePersonalInfoDto);
+    return this.personalInfoService.update(id, updatePersonalInfoDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.personalInfoService.remove(+id);
+    return this.personalInfoService.remove(id);
   }
 }

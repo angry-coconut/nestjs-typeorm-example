@@ -1,26 +1,49 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { CreatePersonalInfoDto } from './dto/create-personal-info.dto';
 import { UpdatePersonalInfoDto } from './dto/update-personal-info.dto';
+import { PersonalInfo } from '../../database/entities/personal-info.entity';
 
 @Injectable()
 export class PersonalInfoService {
-  create(createPersonalInfoDto: CreatePersonalInfoDto) {
-    return 'This action adds a new personalInfo';
+  constructor(
+    @InjectRepository(PersonalInfo)
+    private readonly personalInfoRepo: Repository<PersonalInfo>,
+  ) {}
+
+  async create(createPersonalInfoDto: CreatePersonalInfoDto) {
+    try {
+      await this.personalInfoRepo.insert(createPersonalInfoDto);
+    } catch (e) {
+      return false;
+    }
+    return true;
   }
 
-  findAll() {
-    return `This action returns all personalInfo`;
+  async findAll() {
+    return this.personalInfoRepo.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} personalInfo`;
+  async findOne(id: string) {
+    return this.personalInfoRepo.findOne({ id });
   }
 
-  update(id: number, updatePersonalInfoDto: UpdatePersonalInfoDto) {
-    return `This action updates a #${id} personalInfo`;
+  async update(id: string, updatePersonalInfoDto: UpdatePersonalInfoDto) {
+    try {
+      await this.personalInfoRepo.update({ id }, updatePersonalInfoDto);
+    } catch (e) {
+      return false;
+    }
+    return true;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} personalInfo`;
+  async remove(id: string) {
+    try {
+      await this.personalInfoRepo.delete({ id });
+    } catch (e) {
+      return false;
+    }
+    return true;
   }
 }

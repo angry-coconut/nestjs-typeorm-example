@@ -1,26 +1,49 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { CreateStoreDto } from './dto/create-store.dto';
 import { UpdateStoreDto } from './dto/update-store.dto';
+import { Store } from '../../database/entities/store.entity';
 
 @Injectable()
 export class StoresService {
-  create(createStoreDto: CreateStoreDto) {
-    return 'This action adds a new store';
+  constructor(
+    @InjectRepository(Store)
+    private readonly storeRepository: Repository<Store>,
+  ) {}
+
+  async create(createStoreDto: CreateStoreDto) {
+    try {
+      await this.storeRepository.insert(createStoreDto);
+    } catch (e) {
+      return false;
+    }
+    return true;
   }
 
-  findAll() {
-    return `This action returns all stores`;
+  async findAll() {
+    return this.storeRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} store`;
+  async findOne(id: string) {
+    return this.storeRepository.findOne({ id });
   }
 
-  update(id: number, updateStoreDto: UpdateStoreDto) {
-    return `This action updates a #${id} store`;
+  async update(id: string, updateStoreDto: UpdateStoreDto) {
+    try {
+      await this.storeRepository.update({ id }, updateStoreDto);
+    } catch (e) {
+      return false;
+    }
+    return true;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} store`;
+  async remove(id: string) {
+    try {
+      await this.storeRepository.delete({ id });
+    } catch (e) {
+      return false;
+    }
+    return true;
   }
 }
