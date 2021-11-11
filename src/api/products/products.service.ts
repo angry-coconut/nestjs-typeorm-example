@@ -36,6 +36,15 @@ export class ProductsService {
     );
   }
 
+  async findProductWithOrders(id: string) {
+    return this.productRepo.findOne(
+      { id },
+      {
+        relations: ['orders', 'orders.customer'],
+      },
+    );
+  }
+
   async update(id: string, updateProductDto: UpdateProductDto) {
     try {
       await this.productRepo.update({ id }, updateProductDto);

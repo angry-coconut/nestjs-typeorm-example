@@ -22,11 +22,20 @@ export class OrdersService {
   }
 
   async findAll() {
-    return this.orderRepo.find({});
+    return this.orderRepo.find({
+      relations: ['product', 'customer'],
+      select: ['id', 'amount'],
+    });
   }
 
   async findOne(id: string) {
-    return this.orderRepo.find({ id });
+    return this.orderRepo.findOne(
+      { id },
+      {
+        relations: ['product', 'customer'],
+        select: ['id', 'amount'],
+      },
+    );
   }
 
   async update(id: string, updateOrderDto: UpdateOrderDto) {

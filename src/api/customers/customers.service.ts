@@ -37,6 +37,15 @@ export class CustomersService {
     return personalInfo;
   }
 
+  async findCustomerWithOrders(id: string) {
+    return this.customerRepo.findOne(
+      { id },
+      {
+        relations: ['orders', 'orders.product'],
+      },
+    );
+  }
+
   async update(id: string, updateCustomerDto: UpdateCustomerDto) {
     try {
       await this.customerRepo.update({ id }, updateCustomerDto);

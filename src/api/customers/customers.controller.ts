@@ -37,6 +37,11 @@ export class CustomersController {
     return this.customersService.findPersonalInfoById(id);
   }
 
+  @Get(':id/orders')
+  findOrders(@Param('id') id: string) {
+    return this.customersService.findCustomerWithOrders(id);
+  }
+
   @Patch(':id')
   update(
     @Param('id') id: string,

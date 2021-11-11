@@ -2,10 +2,12 @@ import {
   Column,
   Entity,
   JoinColumn,
+  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { PersonalInfo } from './personal-info.entity';
+import { Order } from './order.entity';
 
 @Entity()
 export class Customer {
@@ -24,4 +26,7 @@ export class Customer {
   @OneToOne(() => PersonalInfo)
   @JoinColumn({ name: 'id', referencedColumnName: 'id' })
   personalInfo: PersonalInfo;
+
+  @OneToMany(() => Order, (order) => order.customer)
+  orders: Order[];
 }
