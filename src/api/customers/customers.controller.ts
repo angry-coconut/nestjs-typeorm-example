@@ -11,6 +11,7 @@ import { ApiTags } from '@nestjs/swagger';
 import { CustomersService } from './customers.service';
 import { CreateCustomerDto } from './dto/create-customer.dto';
 import { UpdateCustomerDto } from './dto/update-customer.dto';
+import { CreateCustomerWithPersonalInfoDto } from './dto/create-customer-with-personal-info.dto';
 
 @ApiTags('Customers')
 @Controller('customers')
@@ -20,6 +21,16 @@ export class CustomersController {
   @Post()
   create(@Body() createCustomerDto: CreateCustomerDto) {
     return this.customersService.create(createCustomerDto);
+  }
+
+  @Post('/with-personal-info')
+  createWithPersonalInfo(
+    @Body()
+    createCustomerWithPersonalInfoDto: CreateCustomerWithPersonalInfoDto,
+  ) {
+    return this.customersService.createWithPersonalInfo(
+      createCustomerWithPersonalInfoDto,
+    );
   }
 
   @Get()
