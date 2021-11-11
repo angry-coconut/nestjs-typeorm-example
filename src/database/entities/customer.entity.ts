@@ -1,4 +1,11 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { PersonalInfo } from './personal-info.entity';
 
 @Entity()
 export class Customer {
@@ -13,4 +20,8 @@ export class Customer {
 
   @Column({ type: 'bool', nullable: false })
   isActive: boolean;
+
+  @OneToOne(() => PersonalInfo)
+  @JoinColumn({ name: 'id', referencedColumnName: 'id' })
+  personalInfo: PersonalInfo;
 }
